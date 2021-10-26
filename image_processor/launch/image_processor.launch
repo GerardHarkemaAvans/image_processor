@@ -39,7 +39,9 @@
 		<remap from="/image_processor/image_in" to="/usb_cam/image_rect_color"/>
 -->
 		<remap from="/image_processor/image_in" to="/usb_cam/image_raw"/>
+<!--
 				<remap from="/image_processor/image_out" to="/test/image_raw"/>
+-->
 		<remap from="/image_processor/camera_info_in" to="/usb_cam/camera_info"/>
 	</node>
 
