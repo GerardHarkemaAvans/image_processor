@@ -24,7 +24,7 @@ int main(int argc, char **argv)
             ros::spinOnce();
 
             //do things
-            imgp_ros.process();
+           imgp_ros.process();
 
             //publish things
             imgp_ros.publish();
@@ -69,7 +69,7 @@ void ImageProcessorRos::process(){
 
 void ImageProcessorRos::publish()
 {
-  cv_img_out_ = imgp.getOutputImage();
+  cv_img_out_.image = imgp.getOutputImage();
   ray_direction_ = imgp.getRayDirection();
 
   //image_raw topic
@@ -104,7 +104,7 @@ void ImageProcessorRos::imageCallback(const sensor_msgs::ImageConstPtr& _msg)
   {
       img_encoding_ = _msg->encoding;//get image encodings
       cv_img_ptr_in_ = cv_bridge::toCvCopy(_msg, _msg->encoding);//get image
-      imgp.setInputImage(cv_img_ptr_in_);
+      imgp.setInputImage(&cv_img_ptr_in_->image);
   }
   catch (cv_bridge::Exception& e)
   {

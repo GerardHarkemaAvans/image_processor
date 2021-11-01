@@ -35,13 +35,8 @@
 		type="image_processor_node"
 		output="screen"
 		args="1">
-<!--
-		<remap from="/image_processor/image_in" to="/usb_cam/image_rect_color"/>
--->
+
 		<remap from="/image_processor/image_in" to="/usb_cam/image_raw"/>
-<!--
-				<remap from="/image_processor/image_out" to="/test/image_raw"/>
--->
 		<remap from="/image_processor/camera_info_in" to="/usb_cam/camera_info"/>
 	</node>
 
@@ -54,7 +49,7 @@
 			respawn="false"
 			output="screen">
 			<remap from="image" to="/usb_cam/image_raw"/>
-			<param name="autosize" value="false" />
+			<param name="autosize" value="true" />
 		</node>
 		<node
 			name="image_view_out"
@@ -63,11 +58,12 @@
 			respawn="false"
 			output="screen">
 			<remap from="image" to="/image_processor/image_out"/>
-			<param name="autosize" value="false" />
+			<param name="autosize" value="true" />
 		</node>
 	</group>
 
-
+<!--
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find image_processor)/config/image_processor.rviz"/>
+-->
 
 </launch>

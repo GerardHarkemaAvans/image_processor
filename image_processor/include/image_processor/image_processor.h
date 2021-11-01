@@ -1,27 +1,27 @@
 #ifndef ROS_IMG_PROCESSOR_H
 #define ROS_IMG_PROCESSOR_H
 
+#include <opencv2/opencv.hpp>
+
 //std C++
 #include <iostream>
 
-//ROS headers for image I/O
-//#include <image_transport/image_transport.h>
-#include <cv_bridge/cv_bridge.h>
-
-//#include "geometry_msgs/Vector3.h"
+// do not use ROS functions/headers/etc. in this file
 
 /** \brief Simple Image Processor
  *
  * Simple Image Processor with opencv calls
  *
  */
+
 class ImageProcessor
 {
     protected:
 
         //pointer to received (in) and published (out) images
-        cv_bridge::CvImagePtr cv_img_ptr_in_;
-        cv_bridge::CvImage cv_img_out_;
+        cv::Mat *cv_mat_ptr_in_ = nullptr;
+        cv::Mat cv_mat_out_;
+
         // ray direction in camera frame.
         cv::Mat ray_direction_;
 
@@ -56,7 +56,7 @@ class ImageProcessor
         */
         ~ImageProcessor();
 
-        void setInputImage(cv_bridge::CvImagePtr img_ptr);
+        void setInputImage(cv::Mat  *cv_mat_ptr);
         void setCameraInfo(cv::Mat matrixP, cv::Mat matrixK);
 
         /** \brief Process input image
@@ -66,7 +66,7 @@ class ImageProcessor
         **/
         void process();
 
-        cv_bridge::CvImage getOutputImage();
+        cv::Mat getOutputImage();
         cv::Mat getRayDirection();
 
 };
