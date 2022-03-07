@@ -2,8 +2,8 @@
 
 <launch>
 	<!-- User arguments -->
-	<arg name="video_device"  default="/dev/video0" />
-	<arg name="show_image"  default="true" />
+	<arg name="video_device"  default="/dev/video4" />
+	<arg name="show_image"  default="false" />
 
 	<!-- camera capture -->
 	<node
@@ -13,7 +13,7 @@
 		output="screen" >
 		<param name="video_device" value="$(arg video_device)" />
 		<param name="image_width" value="640" />
-		<param name="image_height" value="480" />
+		<param name="image_height" value="360" />
 		<param name="pixel_format" value="yuyv" />
 		<param name="camera_frame_id" value="usb_cam" />
 		<param name="io_method" value="mmap"/>
@@ -62,8 +62,6 @@
 		</node>
 	</group>
 
-<!--
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find image_processor)/config/image_processor.rviz"/>
--->
 
 </launch>

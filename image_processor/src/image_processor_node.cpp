@@ -98,12 +98,12 @@ double ImageProcessorRos::getRate() const
     return rate_;
 }
 
-void ImageProcessorRos::imageCallback(const sensor_msgs::ImageConstPtr& _msg)
+void ImageProcessorRos::imageCallback(const sensor_msgs::ImageConstPtr& image_topic)
 {
   try
   {
-      img_encoding_ = _msg->encoding;//get image encodings
-      cv_img_ptr_in_ = cv_bridge::toCvCopy(_msg, _msg->encoding);//get image
+      img_encoding_ = image_topic->encoding;//get image encodings
+      cv_img_ptr_in_ = cv_bridge::toCvCopy(image_topic, image_topic->encoding);//get image
       imgp.setInputImage(&cv_img_ptr_in_->image);
   }
   catch (cv_bridge::Exception& e)
