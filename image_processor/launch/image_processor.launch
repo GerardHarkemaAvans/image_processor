@@ -2,7 +2,7 @@
 
 <launch>
 	<!-- User arguments -->
-	<arg name="video_device"  default="/dev/video4" />
+	<arg name="video_device"  default="/dev/video0" />
 	<arg name="show_image"  default="false" />
 
 	<!-- camera capture -->

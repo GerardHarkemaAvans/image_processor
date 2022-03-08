@@ -23,7 +23,7 @@ class ImageProcessor
         cv::Mat cv_mat_out_;
 
         // ray direction in camera frame.
-        cv::Mat ray_direction_;
+        cv::Point circle_center_;
 
     		//Camera matrix
     		cv::Mat matrixP_;
@@ -38,8 +38,7 @@ class ImageProcessor
     protected:
         // callbacks
 
-        void draw_clircle(const cv::Point & center, const int radius, bool draw_center_coordinates);
-        void draw_ray_direction_vector(const cv::Point & center);
+        void draw_circle(const cv::Point & center, const int radius, bool draw_center_coordinates);
 
     public:
         /** \brief Constructor
@@ -67,7 +66,7 @@ class ImageProcessor
         void process();
 
         cv::Mat getOutputImage();
-        cv::Mat getRayDirection();
+        cv::Point getCircleCenter();
 
 };
 #endif

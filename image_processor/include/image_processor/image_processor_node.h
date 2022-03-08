@@ -34,7 +34,7 @@ class ImageProcessorRos
 
         //publishers
         image_transport::Publisher image_pub_;
-        ros::Publisher ray_direction_circle_pub;
+        ros::Publisher circle_center_pub;
 
         //pointer to received (in) and published (out) images
         cv_bridge::CvImagePtr cv_img_ptr_in_;
@@ -49,7 +49,7 @@ class ImageProcessorRos
 
         ImageProcessor imgp;
 
-        cv::Mat ray_direction_;
+        cv::Point circle_center;
 
 
     protected:
@@ -73,7 +73,8 @@ class ImageProcessorRos
         ~ImageProcessorRos();
 
 
-        /** \brief Process input image
+  	//std::cout << matrixP_ << std::endl;
+      /** \brief Process input image
         *
         * Process input image
         *

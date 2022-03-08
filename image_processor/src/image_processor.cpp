@@ -12,7 +12,6 @@
 ImageProcessor::ImageProcessor()
 {
   std::cout << "Constructor" << std::endl;
-  ray_direction_ = (cv::Mat_<double>(3,1) << 0, 0, 0) ;
 }
 
 ImageProcessor::~ImageProcessor()
@@ -57,27 +56,20 @@ void ImageProcessor::process()
                 // get cirlce coodinates, center point and radius.
                 Hough_Circle::get_center_coordinates(circles[ii], center, radius);
                 // draw circle.
-                draw_clircle(center, radius, true/*draw circle center coordinates*/);
-                // calculate center circle ray direction from camera frame persepctive,
-                // put the circle center point in the real world.
-                Camera::get_ray_direction(matrixK_, center, ray_direction_);
-                // draw vector.
-                //draw_ray_direction_vector(center);
+                draw_circle(center, radius, true/*draw circle center coordinates*/);
+
+                circle_center_ = center;
+
+                break; //?
+
             }
         }
-
-        //sets and draw a bounding box around the ball
-        //box.x = (cv_mat_ptr_in_->image.cols/2)-10;
-        //box.y = (cv_mat_ptr_in_->image.rows/2)-10;
-        //box.width = 20;
-        //box.height = 20;
-        //cv::rectangle(cv_mat_out_.image, box, cv::Scalar(0,255,255), 3);
     }
     //reset input image
     cv_mat_ptr_in_ = nullptr;
 }
 
-void ImageProcessor::draw_clircle(const cv::Point & center, int radius, bool draw_center_coordinates)
+void ImageProcessor::draw_circle(const cv::Point & center, int radius, bool draw_center_coordinates)
 {
   // circle center in yellow
   cv::circle(cv_mat_out_, center, 5, cv::Scalar(255, 255, 0), -1, 8, 0 );
@@ -93,16 +85,11 @@ void ImageProcessor::draw_clircle(const cv::Point & center, int radius, bool dra
     cv::putText(cv_mat_out_, stringStream.str(), center, cv::FONT_HERSHEY_PLAIN, 0.8, cv::Scalar(255, 153, 51), 2, 0.5);
   }
 }
-void ImageProcessor::draw_ray_direction_vector(const cv::Point & center)
-{
-  // line from center circle
-  cv::line( cv_mat_out_, center, cv::Point( ray_direction_.at<double>(0, 0), ray_direction_.at<double>(1, 0) ), cv::Scalar( 110, 220, 0 ),  2, 8 );
-}
 
 cv::Mat ImageProcessor::getOutputImage(){
   return cv_mat_out_;
 }
 
-cv::Mat ImageProcessor::getRayDirection(){
-  return ray_direction_;
+cv::Point ImageProcessor::getCircleCenter(){
+  return circle_center_;
 }
